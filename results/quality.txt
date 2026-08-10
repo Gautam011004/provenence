@@ -1,0 +1,42 @@
+
+strength ranking quality, active table only
+  corpus=20000 active=14208 quarantined=5792 (29.0% vetoed at write time)
+  good means true_quality >= 0.70  median quality 0.574
+
+whole-ranking correlation
+arm                vs quality vs popularity
+------------------------------------------
+additive                0.283        0.989
+additive_tuned          0.664        0.536
+scorecard               0.751        0.397
+  vs quality: higher is better. vs popularity: LOWER is better -- a high
+  value means the score is mostly measuring traffic, not quality.
+
+arm @k=100           ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------
+additive            0.887     0.960     0.865         0     0.087
+additive_tuned      0.920     0.990     0.893         0     0.802
+scorecard           0.935     1.000     0.910         0     0.653
+
+arm @k=1000          ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------
+additive            0.739     0.457     0.658       323     0.934
+additive_tuned      0.880     0.809     0.800        52     0.901
+scorecard           0.927     0.928     0.845         9     0.838
+
+arm @k=5000          ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------
+additive            0.784     0.380     0.618      1963     0.971
+additive_tuned      0.910     0.585     0.717       898     0.941
+scorecard           0.933     0.624     0.734       680     0.931
+
+  junk: entries in the top k whose true quality is below median.
+
+worst memory appearing in the top 5000, per arm
+arm                    rank  quality  popular retrievals  evals   neg
+----------------------------------------------------------------------
+additive               1797    0.019    0.858        758   0.00     3
+additive_tuned         4589    0.182    0.980       1130   0.01     1
+scorecard              4959    0.095    0.556        206   0.41     0
+
+wrote results/quality.json

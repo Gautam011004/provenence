@@ -1,0 +1,31 @@
+
+strength projection latency
+  python 3.9.6 / arm64 / macOS-26.5.1-arm64-arm-64bit
+  corpus=20000 approval_rate=0.30 veto_threshold=3 explain=False
+  store rtt us: memory=250.0 signal=250.0 approval=250.0
+  retrieval: active table only (vetoed quarantined at write time)
+
+mode     arm                 batch   veto     p50 us     p95 us     p99 us     us/mem        mem/s
+--------------------------------------------------------------------------------------------------
+e2e      noop                  100   0.15     526.38     534.00     538.50     5.2673       189850
+e2e      additive              100   0.15     538.46     546.04     562.88     5.3955       185339
+e2e      scorecard             100   0.15     813.88     827.92     840.12     8.1567       122599
+e2e      scorecard_inline      100   0.15     559.17     574.04     584.25     5.6097       178263
+
+scoring cost per arm: p50 minus the noop control, in us
+mode       batch   veto   additive  scorecard     inline  appr hit
+------------------------------------------------------------------
+e2e          100   0.15      12.08     287.50      32.79      100%
+  appr hit is the share of batches containing at least one veto candidate,
+  i.e. how often the read-time scorecard pays the extra approval round trip.
+  inline reads veto standing off the signal record, so it never pays it.
+
+e2e phase attribution (mean us per call)
+arm                 batch   veto   retrieve    signals   approvals      score
+---------------------------------------------------------------------------
+noop                  100   0.15     253.70     253.56        0.14      12.91
+additive              100   0.15     253.80     253.76        0.15      28.28
+scorecard             100   0.15     258.49     257.22      255.36      49.95
+scorecard_inline      100   0.15     255.49     254.91        0.14      46.98
+
+wrote results/partitioned.json

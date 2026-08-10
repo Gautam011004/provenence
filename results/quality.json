@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "size": 20000,
+    "active": 14208,
+    "quarantined": 5792,
+    "ks": [
+      100,
+      1000,
+      5000
+    ],
+    "good_threshold": 0.7,
+    "median_quality": 0.5737410883900387,
+    "perturb": 0.05,
+    "veto_threshold": 3,
+    "seed": 4242
+  },
+  "rows": [
+    {
+      "arm": "additive",
+      "spearman_quality": 0.28254959193813195,
+      "spearman_popularity": 0.9892471446235462,
+      "at_k": {
+        "100": {
+          "ndcg": 0.886736791264653,
+          "precision": 0.96,
+          "junk": 0,
+          "stability": 0.08695652173913043,
+          "mean_quality": 0.8650586074063108
+        },
+        "1000": {
+          "ndcg": 0.7394617831740172,
+          "precision": 0.457,
+          "junk": 323,
+          "stability": 0.9342359767891683,
+          "mean_quality": 0.6581569559893414
+        },
+        "5000": {
+          "ndcg": 0.7844714043739199,
+          "precision": 0.3798,
+          "junk": 1963,
+          "stability": 0.9712201852946974,
+          "mean_quality": 0.6179900197248267
+        }
+      }
+    },
+    {
+      "arm": "additive_tuned",
+      "spearman_quality": 0.6644639020723665,
+      "spearman_popularity": 0.5362304498230432,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9199280851958069,
+          "precision": 0.99,
+          "junk": 0,
+          "stability": 0.8018018018018018,
+          "mean_quality": 0.8933944652293029
+        },
+        "1000": {
+          "ndcg": 0.8795367769481858,
+          "precision": 0.809,
+          "junk": 52,
+          "stability": 0.9011406844106464,
+          "mean_quality": 0.7996211036927133
+        },
+        "5000": {
+          "ndcg": 0.9098134641798138,
+          "precision": 0.585,
+          "junk": 898,
+          "stability": 0.9409937888198758,
+          "mean_quality": 0.7169375099197741
+        }
+      }
+    },
+    {
+      "arm": "scorecard",
+      "spearman_quality": 0.7511755992587218,
+      "spearman_popularity": 0.3974376857516258,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9349387156535591,
+          "precision": 1.0,
+          "junk": 0,
+          "stability": 0.6528925619834711,
+          "mean_quality": 0.9097698378535998
+        },
+        "1000": {
+          "ndcg": 0.9265000307470261,
+          "precision": 0.928,
+          "junk": 9,
+          "stability": 0.8382352941176471,
+          "mean_quality": 0.8449392075374353
+        },
+        "5000": {
+          "ndcg": 0.9330956510456881,
+          "precision": 0.6236,
+          "junk": 680,
+          "stability": 0.9305019305019305,
+          "mean_quality": 0.7337096922990577
+        }
+      }
+    }
+  ]
+}

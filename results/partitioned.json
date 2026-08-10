@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "python": "3.9.6",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "corpus_size": 20000,
+    "approval_rate": 0.3,
+    "veto_threshold": 3,
+    "explain": false,
+    "memory_rtt_us": 250.0,
+    "signal_rtt_us": 250.0,
+    "approval_rtt_us": 250.0,
+    "work_budget": 30000,
+    "warmup": 50,
+    "seed": 1337,
+    "partitioned": true
+  },
+  "rows": [
+    {
+      "n": 300,
+      "mean_us": 526.73025,
+      "p50_us": 526.375,
+      "p95_us": 534.0,
+      "p99_us": 538.5,
+      "min_us": 519.917,
+      "max_us": 542.375,
+      "per_memory_us": 5.2673024999999996,
+      "throughput_per_s": 189850.49747949734,
+      "mode": "e2e",
+      "arm": "noop",
+      "batch_size": 100,
+      "veto_rate": 0.15,
+      "approval_hit_rate": 1.0,
+      "phases": {
+        "retrieve_us": 253.70231,
+        "signals_us": 253.55891,
+        "approvals_us": 0.14171,
+        "score_us": 12.90977
+      }
+    },
+    {
+      "n": 300,
+      "mean_us": 539.5510899999999,
+      "p50_us": 538.458,
+      "p95_us": 546.041,
+      "p99_us": 562.875,
+      "min_us": 534.916,
+      "max_us": 574.334,
+      "per_memory_us": 5.3955109,
+      "throughput_per_s": 185339.2604581709,
+      "mode": "e2e",
+      "arm": "additive",
+      "batch_size": 100,
+      "veto_rate": 0.15,
+      "approval_hit_rate": 1.0,
+      "phases": {
+        "retrieve_us": 253.802305,
+        "signals_us": 253.75645,
+        "approvals_us": 0.14545,
+        "score_us": 28.27702
+      }
+    },
+    {
+      "n": 300,
+      "mean_us": 815.6704333333333,
+      "p50_us": 813.875,
+      "p95_us": 827.917,
+      "p99_us": 840.125,
+      "min_us": 806.792,
+      "max_us": 846.958,
+      "per_memory_us": 8.156704333333334,
+      "throughput_per_s": 122598.53479221775,
+      "mode": "e2e",
+      "arm": "scorecard",
+      "batch_size": 100,
+      "veto_rate": 0.15,
+      "approval_hit_rate": 1.0,
+      "phases": {
+        "retrieve_us": 258.493535,
+        "signals_us": 257.221265,
+        "approvals_us": 255.35644,
+        "score_us": 49.947935
+      }
+    },
+    {
+      "n": 300,
+      "mean_us": 560.9685033333333,
+      "p50_us": 559.167,
+      "p95_us": 574.042,
+      "p99_us": 584.25,
+      "min_us": 551.708,
+      "max_us": 593.542,
+      "per_memory_us": 5.609685033333332,
+      "throughput_per_s": 178263.12779735329,
+      "mode": "e2e",
+      "arm": "scorecard_inline",
+      "batch_size": 100,
+      "veto_rate": 0.15,
+      "approval_hit_rate": 1.0,
+      "phases": {
+        "retrieve_us": 255.48564000000002,
+        "signals_us": 254.911025,
+        "approvals_us": 0.14476,
+        "score_us": 46.978989999999996
+      }
+    }
+  ]
+}

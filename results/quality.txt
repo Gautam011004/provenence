@@ -4,39 +4,59 @@ strength ranking quality, active table only
   good means true_quality >= 0.70  median quality 0.574
 
 whole-ranking correlation
-arm                vs quality vs popularity
+arm                      vs quality vs popularity
 ------------------------------------------
-additive                0.283        0.989
-additive_tuned          0.664        0.536
-scorecard               0.751        0.397
+additive                      0.283        0.989
+additive_capped               0.309        0.981
+additive_tuned                0.664        0.536
+additive_tuned_capped         0.689        0.472
+additive_all_capped           0.698        0.477
+scorecard_equal               0.786        0.380
+scorecard_tuned               0.812        0.364
   vs quality: higher is better. vs popularity: LOWER is better -- a high
   value means the score is mostly measuring traffic, not quality.
 
-arm @k=100           ndcg      prec    mean q      junk stability
------------------------------------------------------------------
-additive            0.887     0.960     0.865         0     0.087
-additive_tuned      0.920     0.990     0.893         0     0.802
-scorecard           0.935     1.000     0.910         0     0.653
+arm @k=100                 ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------------
+additive                  0.887     0.960     0.865         0     0.087
+additive_capped           0.900     0.980     0.875         0     0.667
+additive_tuned            0.920     0.990     0.893         0     0.802
+additive_tuned_capped     0.924     0.980     0.896         0     0.653
+additive_all_capped       0.924     0.980     0.896         0     0.653
+scorecard_equal           0.930     0.990     0.903         0     0.626
+scorecard_tuned           0.933     1.000     0.907         0     0.653
 
-arm @k=1000          ndcg      prec    mean q      junk stability
------------------------------------------------------------------
-additive            0.739     0.457     0.658       323     0.934
-additive_tuned      0.880     0.809     0.800        52     0.901
-scorecard           0.927     0.928     0.845         9     0.838
+arm @k=1000                ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------------
+additive                  0.739     0.457     0.658       323     0.934
+additive_capped           0.873     0.798     0.793        49     0.832
+additive_tuned            0.880     0.809     0.800        52     0.901
+additive_tuned_capped     0.913     0.889     0.832        13     0.864
+additive_all_capped       0.913     0.889     0.832        13     0.864
+scorecard_equal           0.922     0.912     0.841        10     0.867
+scorecard_tuned           0.930     0.934     0.849         9     0.835
 
-arm @k=5000          ndcg      prec    mean q      junk stability
------------------------------------------------------------------
-additive            0.784     0.380     0.618      1963     0.971
-additive_tuned      0.910     0.585     0.717       898     0.941
-scorecard           0.933     0.624     0.734       680     0.931
+arm @k=5000                ndcg      prec    mean q      junk stability
+-----------------------------------------------------------------------
+additive                  0.784     0.380     0.618      1963     0.971
+additive_capped           0.794     0.380     0.618      1963     0.971
+additive_tuned            0.910     0.585     0.717       898     0.941
+additive_tuned_capped     0.921     0.601     0.724       799     0.933
+additive_all_capped       0.921     0.602     0.724       798     0.933
+scorecard_equal           0.940     0.642     0.741       573     0.916
+scorecard_tuned           0.947     0.659     0.745       519     0.909
 
   junk: entries in the top k whose true quality is below median.
 
 worst memory appearing in the top 5000, per arm
-arm                    rank  quality  popular retrievals  evals   neg
+arm                          rank  quality  popular retrievals  evals   neg
 ----------------------------------------------------------------------
-additive               1797    0.019    0.858        758   0.00     3
-additive_tuned         4589    0.182    0.980       1130   0.01     1
-scorecard              4959    0.095    0.556        206   0.41     0
+additive                     1797    0.019    0.858        758   0.00     3
+additive_capped              3055    0.019    0.858        758   0.00     3
+additive_tuned               4589    0.182    0.980       1130   0.01     1
+additive_tuned_capped        4401    0.191    1.000       1200   0.13     0
+additive_all_capped          4402    0.191    1.000       1200   0.13     0
+scorecard_equal              4596    0.224    0.296         31   0.21     0
+scorecard_tuned              4450    0.256    0.503        152   0.43     0
 
 wrote results/quality.json

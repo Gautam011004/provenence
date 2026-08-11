@@ -13,7 +13,11 @@ from memstrength.dataset import build_corpus, sample_batches
 from memstrength.models import ACTIVE, VETOED, Memory, Signals
 from memstrength.projection import StrengthProjection
 from memstrength.store import ApprovalStore, MemoryStore, SignalStore
-from memstrength.strategies import NormalizedScorecard, RawAdditive
+from memstrength.strategies import (
+    NormalizedScorecard,
+    RawAdditive,
+    equal_weight_scorecard,
+)
 
 
 def sig(**kw):
@@ -489,6 +493,235 @@ class TestReinstatement(unittest.TestCase):
         proj = StrengthProjection(part, corpus.signals, self.inline, approvals)
         proj.project(part.active_ids()[:200])
         self.assertEqual(approvals.calls, 0)
+
+
+
+class TestInfluenceBudget(unittest.TestCase):
+    """No single signal may drown the others -- made checkable, not implicit."""
+
+    def test_scorecard_budget_is_entirely_finite(self):
+        for k, v in NormalizedScorecard().influence_budget().items():
+            self.assertLess(v, float("inf"), "%s is unbounded" % k)
+
+    def test_the_scale_stays_a_true_hundred(self):
+        # The headroom retrieval gives up is reassigned, so capping it does not
+        # quietly shrink the range a score is read against.
+        for card in (NormalizedScorecard(), equal_weight_scorecard()):
+            self.assertAlmostEqual(card.max_score(), 100.0, places=6)
+
+    def test_an_explicit_uniform_cap_deliberately_lowers_the_maximum(self):
+        # Constraining every signal cannot preserve the range; the point is that
+        # the new maximum is reported rather than silently assumed.
+        card = equal_weight_scorecard(cap=0.10)
+        self.assertLess(card.max_score(), 100.0)
+        self.assertAlmostEqual(card.max_score(), 45.0, places=6)
+
+    def test_max_score_matches_the_sum_of_the_positive_budgets(self):
+        card = NormalizedScorecard()
+        b = card.influence_budget()
+        positives = sum(b[k] for k in ("eval", "validation", "retrieval", "recency", "trust"))
+        self.assertAlmostEqual(card.max_score(), positives, places=6)
+
+    def test_headroom_goes_to_eval_and_validation(self):
+        b = equal_weight_scorecard().influence_budget()
+        # Retrieval drops 20 -> 10; the freed 10 is split between the two
+        # signals that speak to whether a memory is correct.
+        self.assertAlmostEqual(b["retrieval"], 10.0, places=6)
+        self.assertAlmostEqual(b["eval"], 25.0, places=6)
+        self.assertAlmostEqual(b["validation"], 25.0, places=6)
+        for untouched in ("recency", "trust"):
+            self.assertAlmostEqual(b[untouched], 20.0, places=6)
+
+    def test_redistribution_is_pure_bookkeeping(self):
+        from memstrength.strategies import _redistribute_headroom
+        base = {"eval": 0.2, "validation": 0.2, "retrieval": 0.2,
+                "recency": 0.2, "trust": 0.2}
+        out = _redistribute_headroom(base)
+        self.assertAlmostEqual(out["retrieval"], 0.2, places=9)  # weight untouched
+        self.assertAlmostEqual(sum(out.values()), 1.1, places=9)
+        budget = sum(out[k] for k in ("eval", "validation", "recency", "trust"))
+        self.assertAlmostEqual(budget + 0.5 * out["retrieval"], 1.0, places=9)
+
+    def test_no_single_scorecard_signal_exceeds_half_the_scale(self):
+        b = NormalizedScorecard().influence_budget()
+        for k in ("eval", "validation", "retrieval", "recency", "trust"):
+            self.assertLessEqual(b[k], 50.0, "%s can dominate" % k)
+
+    def test_plain_sum_lets_signals_grow_without_limit(self):
+        b = RawAdditive().influence_budget()
+        unbounded = [k for k, v in b.items() if v == float("inf")]
+        self.assertIn("retrieval", unbounded)
+
+    def test_a_cap_bounds_a_signal_but_does_not_make_it_proportionate(self):
+        # Capping retrievals at 500 while the weight stays at 1.0 still lets
+        # retrieval contribute 500 against eval's 10. Bounded is not the same
+        # as balanced -- the cap and the weight have to be chosen together.
+        b = RawAdditive(validation_cap=25.0, retrieval_cap=500.0).influence_budget()
+        self.assertEqual(b["retrieval"], 500.0)
+        self.assertEqual(b["eval"], 10.0)
+        self.assertGreater(b["retrieval"], 10 * b["eval"])
+
+    def test_capping_counts_is_not_enough_to_bound_the_sum(self):
+        # Capping retrievals and validations still leaves recency, negative
+        # feedback and failure history able to swamp everything else.
+        b = RawAdditive(validation_cap=25.0, retrieval_cap=500.0).influence_budget()
+        still_unbounded = sorted(k for k, v in b.items() if v == float("inf"))
+        self.assertEqual(still_unbounded, ["history", "negative", "recency"])
+
+
+
+class TestContributionCaps(unittest.TestCase):
+    """A weight is a preference; a cap is a guarantee."""
+
+    def test_untouched_signals_keep_their_equal_share(self):
+        b = equal_weight_scorecard().influence_budget()
+        for name in ("recency", "trust", "negative", "history"):
+            self.assertAlmostEqual(b[name], 20.0, places=6)
+
+    def test_retrieval_is_capped_below_the_other_signals(self):
+        # Kept in proportion so it cannot swamp the rest -- not excluded.
+        b = equal_weight_scorecard().influence_budget()
+        self.assertAlmostEqual(b["retrieval"], 10.0, places=6)
+        self.assertGreater(b["retrieval"], 0.0)
+        for name in ("eval", "validation", "recency", "trust"):
+            self.assertLess(b["retrieval"], b[name])
+
+    def test_the_retrieval_ceiling_is_overridable(self):
+        b = equal_weight_scorecard(retrieval_cap=0.02).influence_budget()
+        self.assertAlmostEqual(b["retrieval"], 2.0, places=6)
+
+    def test_retrieval_weight_is_not_reduced(self):
+        # Only the ceiling moved. Retrieval keeps its full 1/5 weight, so what
+        # changed is how far it can reach, not how much it counts when it is
+        # within range.
+        card = equal_weight_scorecard()
+        self.assertAlmostEqual(card.w_retrieval, 0.2, places=6)
+
+    def test_a_cap_overrides_an_inflated_weight(self):
+        # Someone retunes eval to 0.6 later. The cap must still hold.
+        b = equal_weight_scorecard(cap=0.10, w_eval=0.6).influence_budget()
+        self.assertAlmostEqual(b["eval"], 10.0, places=6)
+
+    def test_default_ceilings_still_bind_an_inflated_weight(self):
+        # Without an explicit cap, each ceiling is the signal's own default
+        # weight, so retuning upward is still contained.
+        b = equal_weight_scorecard(w_eval=0.6).influence_budget()
+        self.assertAlmostEqual(b["eval"], 25.0, places=6)
+
+    def test_the_cap_actually_binds_during_scoring(self):
+        maxed = sig(eval_score=1.0, validations=10 ** 6, retrievals=10 ** 9,
+                    last_used_days=0.0, source_trust=1.0)
+        loose = equal_weight_scorecard()
+        tight = equal_weight_scorecard(cap=0.10)
+        self.assertGreater(loose.score_many([maxed])[0].value,
+                           tight.score_many([maxed])[0].value)
+
+    def test_capped_components_still_sum_to_the_score(self):
+        s = sig(eval_score=1.0, validations=40, retrievals=900,
+                last_used_days=1.0, source_trust=1.0)
+        card = equal_weight_scorecard(cap=0.10, w_eval=0.6)
+        r = card.score_many([s], explain=True)[0]
+        self.assertAlmostEqual(sum(r.components.values()) * 100.0, r.value, places=6)
+
+    def test_no_signal_can_exceed_its_own_ceiling_however_extreme_the_input(self):
+        extreme = sig(eval_score=1.0, validations=10 ** 9, retrievals=10 ** 9,
+                      last_used_days=0.0, source_trust=1.0)
+        card = equal_weight_scorecard()
+        budget = card.influence_budget()
+        r = card.score_many([extreme], explain=True)[0]
+        for name, value in r.components.items():
+            if name == "penalty":
+                continue
+            self.assertLessEqual(value * 100.0, budget[name] + 1e-9,
+                                 "%s exceeded its ceiling" % name)
+        self.assertLessEqual(r.value, card.max_score() + 1e-9)
+
+    def test_penalties_match_the_baseline_share(self):
+        b = equal_weight_scorecard().influence_budget()
+        for k in ("negative", "history"):
+            self.assertAlmostEqual(b[k], b["recency"], places=6)
+
+    def test_a_lowered_ceiling_applies_to_penalties_too(self):
+        b = equal_weight_scorecard(cap=0.10).influence_budget()
+        self.assertAlmostEqual(b["negative"], 10.0, places=6)
+        self.assertAlmostEqual(b["history"], 10.0, places=6)
+
+    def test_no_penalty_outweighs_a_single_positive_signal(self):
+        b = NormalizedScorecard().influence_budget()
+        largest_positive = max(b[k] for k in
+                               ("eval", "validation", "retrieval", "recency", "trust"))
+        for k in ("negative", "history"):
+            self.assertLessEqual(b[k], largest_positive)
+
+    def test_default_budget_reflects_the_redistribution(self):
+        # eval's default weight carries half of retrieval's forgone ceiling.
+        b = NormalizedScorecard().influence_budget()
+        self.assertAlmostEqual(b["eval"], 38.75, places=6)
+        self.assertAlmostEqual(b["validation"], 23.75, places=6)
+        self.assertAlmostEqual(b["retrieval"], 7.5, places=6)
+
+
+
+class TestSumContributionCaps(unittest.TestCase):
+    """Every signal in the sum needs a ceiling, not just the count-style ones.
+
+    Recency is elapsed days, negative feedback and failure history are counts.
+    All three grow without limit, so without an explicit contribution cap a
+    single one of them can swamp every other signal in the score.
+    """
+
+    CAPS = {k: 12.5 for k in ("eval", "validation", "retrieval", "recency",
+                              "trust", "negative", "history")}
+    BASE = dict(w_retrieval=0.01, w_validation=0.5,
+                validation_cap=25.0, retrieval_cap=500.0)
+
+    def setUp(self):
+        self.loose = RawAdditive(**self.BASE)
+        self.tight = RawAdditive(contribution_caps=self.CAPS, **self.BASE)
+
+    def _mem(self, **kw):
+        base = dict(eval_score=0.9, validations=12, retrievals=200,
+                    source_trust=0.8, last_used_days=9.0)
+        base.update(kw)
+        return sig(**base)
+
+    def test_every_signal_is_bounded_once_capped(self):
+        for name, value in self.tight.influence_budget().items():
+            self.assertLess(value, float("inf"), "%s is unbounded" % name)
+
+    def test_input_caps_alone_leave_three_signals_unbounded(self):
+        b = self.loose.influence_budget()
+        unbounded = sorted(k for k, v in b.items() if v == float("inf"))
+        self.assertEqual(unbounded, ["history", "negative", "recency"])
+
+    def test_an_ancient_memory_cannot_be_swamped_by_recency_alone(self):
+        old = self._mem(last_used_days=1825.0)
+        self.assertLess(self.loose.score_many([old])[0].value, -100.0)
+        self.assertGreater(self.tight.score_many([old])[0].value, 0.0)
+
+    def test_negative_feedback_contribution_is_bounded(self):
+        hated = self._mem(negative_feedback=40)
+        r = self.tight.score_many([hated], explain=True)[0]
+        self.assertAlmostEqual(r.components["negative"], -12.5, places=6)
+
+    def test_failure_history_contribution_is_bounded(self):
+        repeat = self._mem(failure_count=8)
+        r = self.tight.score_many([repeat], explain=True)[0]
+        self.assertAlmostEqual(r.components["history"], -12.5, places=6)
+
+    def test_caps_do_not_disturb_ordinary_memories(self):
+        typical = self._mem(negative_feedback=1)
+        self.assertAlmostEqual(self.loose.score_many([typical])[0].value,
+                               self.tight.score_many([typical])[0].value, places=6)
+
+    def test_capped_components_still_sum_to_the_total(self):
+        extreme = self._mem(last_used_days=5000.0, negative_feedback=40, failure_count=8)
+        r = self.tight.score_many([extreme], explain=True)[0]
+        self.assertAlmostEqual(sum(r.components.values()), r.value, places=6)
+
+    def test_uncapped_sum_is_unchanged_by_default(self):
+        b = RawAdditive().influence_budget()
+        self.assertEqual(b["recency"], float("inf"))
 
 
 if __name__ == "__main__":

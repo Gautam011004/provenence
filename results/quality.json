@@ -44,6 +44,34 @@
       }
     },
     {
+      "arm": "additive_capped",
+      "spearman_quality": 0.30913117241022103,
+      "spearman_popularity": 0.9810250380951526,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9000955659091142,
+          "precision": 0.98,
+          "junk": 0,
+          "stability": 0.6666666666666666,
+          "mean_quality": 0.8747666421070954
+        },
+        "1000": {
+          "ndcg": 0.8726203116834955,
+          "precision": 0.798,
+          "junk": 49,
+          "stability": 0.8315018315018315,
+          "mean_quality": 0.7925919883024284
+        },
+        "5000": {
+          "ndcg": 0.793699769836554,
+          "precision": 0.3798,
+          "junk": 1963,
+          "stability": 0.9712201852946974,
+          "mean_quality": 0.6179900197248273
+        }
+      }
+    },
+    {
       "arm": "additive_tuned",
       "spearman_quality": 0.6644639020723665,
       "spearman_popularity": 0.5362304498230432,
@@ -72,30 +100,114 @@
       }
     },
     {
-      "arm": "scorecard",
-      "spearman_quality": 0.7511755992587218,
-      "spearman_popularity": 0.3974376857516258,
+      "arm": "additive_tuned_capped",
+      "spearman_quality": 0.6894445854471801,
+      "spearman_popularity": 0.4723644650886526,
       "at_k": {
         "100": {
-          "ndcg": 0.9349387156535591,
+          "ndcg": 0.9236161802882633,
+          "precision": 0.98,
+          "junk": 0,
+          "stability": 0.6528925619834711,
+          "mean_quality": 0.8962633992533161
+        },
+        "1000": {
+          "ndcg": 0.913437193342411,
+          "precision": 0.889,
+          "junk": 13,
+          "stability": 0.863932898415657,
+          "mean_quality": 0.831899734221257
+        },
+        "5000": {
+          "ndcg": 0.9213596576356957,
+          "precision": 0.6014,
+          "junk": 799,
+          "stability": 0.9334880123743233,
+          "mean_quality": 0.7243512980695971
+        }
+      }
+    },
+    {
+      "arm": "additive_all_capped",
+      "spearman_quality": 0.6980407575171435,
+      "spearman_popularity": 0.47685572510368407,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9236161802882633,
+          "precision": 0.98,
+          "junk": 0,
+          "stability": 0.6528925619834711,
+          "mean_quality": 0.8962633992533161
+        },
+        "1000": {
+          "ndcg": 0.913437193342411,
+          "precision": 0.889,
+          "junk": 13,
+          "stability": 0.863932898415657,
+          "mean_quality": 0.831899734221257
+        },
+        "5000": {
+          "ndcg": 0.9214162853103178,
+          "precision": 0.6016,
+          "junk": 798,
+          "stability": 0.9334880123743233,
+          "mean_quality": 0.7244031675509722
+        }
+      }
+    },
+    {
+      "arm": "scorecard_equal",
+      "spearman_quality": 0.7857724137256874,
+      "spearman_popularity": 0.3804852393694886,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9295679615524948,
+          "precision": 0.99,
+          "junk": 0,
+          "stability": 0.6260162601626016,
+          "mean_quality": 0.9031320424671427
+        },
+        "1000": {
+          "ndcg": 0.9220119009268986,
+          "precision": 0.912,
+          "junk": 10,
+          "stability": 0.8674136321195145,
+          "mean_quality": 0.8406348951952775
+        },
+        "5000": {
+          "ndcg": 0.9403637891338267,
+          "precision": 0.6424,
+          "junk": 573,
+          "stability": 0.9157088122605364,
+          "mean_quality": 0.7405452260150601
+        }
+      }
+    },
+    {
+      "arm": "scorecard_tuned",
+      "spearman_quality": 0.8116885268828055,
+      "spearman_popularity": 0.36419141177512016,
+      "at_k": {
+        "100": {
+          "ndcg": 0.9327159445170735,
           "precision": 1.0,
           "junk": 0,
           "stability": 0.6528925619834711,
-          "mean_quality": 0.9097698378535998
+          "mean_quality": 0.9071055507529456
         },
         "1000": {
-          "ndcg": 0.9265000307470261,
-          "precision": 0.928,
+          "ndcg": 0.9301267670620672,
+          "precision": 0.934,
           "junk": 9,
-          "stability": 0.8382352941176471,
-          "mean_quality": 0.8449392075374353
+          "stability": 0.8348623853211009,
+          "mean_quality": 0.8486821863084697
         },
         "5000": {
-          "ndcg": 0.9330956510456881,
-          "precision": 0.6236,
-          "junk": 680,
-          "stability": 0.9305019305019305,
-          "mean_quality": 0.7337096922990577
+          "ndcg": 0.946704760063001,
+          "precision": 0.6592,
+          "junk": 519,
+          "stability": 0.908761213972132,
+          "mean_quality": 0.7454209360454764
         }
       }
     }

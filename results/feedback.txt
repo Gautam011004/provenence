@@ -1,0 +1,78 @@
+
+strength response to negative feedback
+  586 memories extracted from the brand manual (texts real)
+  usage history synthetic, seed 17 -- see module docstring
+
+==============================================================================
+SCENARIO: single_complaint
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline    one complaint
+--------------------------------------------------------
+additive                    262.5  #125      257.5  #131
+additive_all_capped          11.0  #334        6.0  #547
+scorecard_equal              69.7  #346       54.7  #546
+scorecard_tuned              64.7  #402       49.7  #560
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+==============================================================================
+SCENARIO: mounting_complaints
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline      1 complaint     2 complaints     3 complaints     4 complaints
+-----------------------------------------------------------------------------------------------------------
+additive                    262.5  #125      257.5  #131      252.5  #139      247.5  #147      242.5  #152
+additive_all_capped          11.0  #334        6.0  #547        1.0  #586       -1.5  #586       -1.5  #586
+scorecard_equal              69.7  #346       54.7  #546       49.7  #569           VETOED           VETOED
+scorecard_tuned              64.7  #402       49.7  #560       44.7  #578           VETOED           VETOED
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+==============================================================================
+SCENARIO: eval_failure
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline       eval fails    approved back    90 days clean
+------------------------------------------------------------------------------------------
+additive                    262.5  #125      253.2  #138      253.2  #138      244.2  #152
+additive_all_capped          11.0  #334        1.7  #583        1.7  #583       -7.3  #586
+scorecard_equal              69.7  #346           VETOED       49.5  #570       46.1  #581
+scorecard_tuned              64.7  #402           VETOED       40.0  #586       36.6  #586
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+==============================================================================
+SCENARIO: popular_but_complained
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline heavily retrieve      1 complaint     2 complaints
+------------------------------------------------------------------------------------------
+additive                    262.5  #125       1164.0  #1       1159.0  #1       1154.0  #1
+additive_all_capped          11.0  #334        15.0  #99       10.0  #391        5.0  #558
+scorecard_equal              69.7  #346       75.5  #211       60.5  #502       55.5  #542
+scorecard_tuned              64.7  #402       70.6  #283       55.6  #532       50.6  #557
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+==============================================================================
+SCENARIO: recovery
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline     2 complaints     re-validated       evals pass
+------------------------------------------------------------------------------------------
+additive                    262.5  #125      252.5  #139      268.5  #125      272.9  #120
+additive_all_capped          11.0  #334        1.0  #586        5.0  #558        9.4  #428
+scorecard_equal              69.7  #346       49.7  #569       55.4  #542       66.4  #404
+scorecard_tuned              64.7  #402       44.7  #578       50.2  #559       67.3  #361
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+==============================================================================
+SCENARIO: neglect
+  subject: UNITED, AS ONE. A promise even more compelling in today’s world of rig
+==============================================================================
+                               baseline   60 days unused  180 days unused   2 years unused
+------------------------------------------------------------------------------------------
+additive                    262.5  #125      256.5  #134      244.5  #152      189.5  #222
+additive_all_capped          11.0  #334        5.0  #558       -0.0  #586       -0.0  #586
+scorecard_equal              69.7  #346       59.0  #514       55.7  #542       55.5  #542
+scorecard_tuned              64.7  #402       54.1  #541       50.8  #557       50.6  #557
+  cell = strength, then rank among 586 memories (#1 strongest)
+
+wrote results/feedback.json

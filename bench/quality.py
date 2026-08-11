@@ -44,7 +44,11 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from memstrength.dataset import build_quality_corpus  # noqa: E402
-from memstrength.strategies import RawAdditive, ScorecardInline  # noqa: E402
+from memstrength.strategies import (  # noqa: E402
+    RawAdditive,
+    ScorecardInline,
+    equal_weight_scorecard,
+)
 from memstrength.veto import VetoPolicy  # noqa: E402
 
 
@@ -140,13 +144,38 @@ def perturb(signals, rng, scale=0.05):
     return out
 
 
+# Same ceilings the scorecard uses, so capping is compared like for like.
+VAL_CAP = 25.0
+RET_CAP = 500.0
+TUNED = dict(w_retrieval=0.01, w_validation=0.5)
+
+
 def make_arms(veto_threshold):
+    """A 2x2 on weights x caps, plus the scorecard.
+
+    The point of the grid is to separate two things that are easy to conflate:
+    picking better weights, and bounding the inputs those weights multiply.
+    """
     return [
         ("additive", RawAdditive()),
-        # Same shape, but retrieval no longer dwarfs everything else. The
-        # honest version of approach A.
-        ("additive_tuned", RawAdditive(w_retrieval=0.01, w_validation=0.5)),
-        ("scorecard", ScorecardInline(veto_negative_threshold=veto_threshold)),
+        ("additive_capped", RawAdditive(validation_cap=VAL_CAP, retrieval_cap=RET_CAP)),
+        ("additive_tuned", RawAdditive(**TUNED)),
+        ("additive_tuned_capped",
+         RawAdditive(validation_cap=VAL_CAP, retrieval_cap=RET_CAP, **TUNED)),
+        # Every signal capped, including the three that are elapsed days or raw
+        # counts. 12.5 is the largest contribution any signal could already
+        # reach, so this levels them rather than inventing a new scale.
+        ("additive_all_capped",
+         RawAdditive(validation_cap=VAL_CAP, retrieval_cap=RET_CAP,
+                     contribution_caps=dict(
+                         {k: 12.5 for k in
+                          ("eval", "validation", "retrieval",
+                           "recency", "trust", "negative", "history")},
+                         retrieval=6.25),
+                     **TUNED)),
+        ("scorecard_equal", equal_weight_scorecard(
+            cls=ScorecardInline, veto_negative_threshold=veto_threshold)),
+        ("scorecard_tuned", ScorecardInline(veto_negative_threshold=veto_threshold)),
     ]
 
 
@@ -221,11 +250,11 @@ def print_report(rows, meta, detail):
     print("")
 
     print("whole-ranking correlation")
-    print("%-16s %12s %12s" % ("arm", "vs quality", "vs popularity"))
+    print("%-22s %12s %12s" % ("arm", "vs quality", "vs popularity"))
     print("-" * 42)
     for r in rows:
         print(
-            "%-16s %12.3f %12.3f"
+            "%-22s %12.3f %12.3f"
             % (r["arm"], r["spearman_quality"], r["spearman_popularity"])
         )
     print("  vs quality: higher is better. vs popularity: LOWER is better -- a high")
@@ -234,7 +263,7 @@ def print_report(rows, meta, detail):
     for k in ks:
         print("")
         header = (
-            "%-16s %8s %9s %9s %9s %9s"
+            "%-22s %8s %9s %9s %9s %9s"
             % ("arm @k=%d" % k, "ndcg", "prec", "mean q", "junk", "stability")
         )
         print(header)
@@ -242,7 +271,7 @@ def print_report(rows, meta, detail):
         for r in rows:
             m = r["at_k"][k]
             print(
-                "%-16s %8.3f %9.3f %9.3f %9d %9.3f"
+                "%-22s %8.3f %9.3f %9.3f %9d %9.3f"
                 % (r["arm"], m["ndcg"], m["precision"], m["mean_quality"],
                    m["junk"], m["stability"])
             )
@@ -257,7 +286,7 @@ def _print_worst_case(rows, active, truth, pop, meta, k):
     print("")
     print("worst memory appearing in the top %d, per arm" % k)
     print(
-        "%-16s %10s %8s %8s %10s %6s %5s"
+        "%-22s %10s %8s %8s %10s %6s %5s"
         % ("arm", "rank", "quality", "popular", "retrievals", "evals", "neg")
     )
     print("-" * 70)
@@ -272,7 +301,7 @@ def _print_worst_case(rows, active, truth, pop, meta, k):
             continue
         s = active[worst_i]
         print(
-            "%-16s %10d %8.3f %8.3f %10d %6.2f %5d"
+            "%-22s %10d %8.3f %8.3f %10d %6.2f %5d"
             % (
                 name,
                 worst_rank,

@@ -1,0 +1,834 @@
+{
+  "rows": [
+    {
+      "scenario": "single_complaint",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "additive",
+      "step": "one complaint",
+      "value": 257.4939281864386,
+      "state": "ACTIVE",
+      "rank": 131,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "additive_all_capped",
+      "step": "one complaint",
+      "value": 5.973928186438599,
+      "state": "ACTIVE",
+      "rank": 547,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "scorecard_equal",
+      "step": "one complaint",
+      "value": 54.66878617309584,
+      "state": "ACTIVE",
+      "rank": 546,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "single_complaint",
+      "arm": "scorecard_tuned",
+      "step": "one complaint",
+      "value": 49.72273809063916,
+      "state": "ACTIVE",
+      "rank": 560,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive",
+      "step": "1 complaint",
+      "value": 257.4939281864386,
+      "state": "ACTIVE",
+      "rank": 131,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive",
+      "step": "2 complaints",
+      "value": 252.4939281864386,
+      "state": "ACTIVE",
+      "rank": 139,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive",
+      "step": "3 complaints",
+      "value": 247.4939281864386,
+      "state": "ACTIVE",
+      "rank": 147,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive",
+      "step": "4 complaints",
+      "value": 242.4939281864386,
+      "state": "ACTIVE",
+      "rank": 152,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive_all_capped",
+      "step": "1 complaint",
+      "value": 5.973928186438599,
+      "state": "ACTIVE",
+      "rank": 547,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive_all_capped",
+      "step": "2 complaints",
+      "value": 0.9739281864385987,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive_all_capped",
+      "step": "3 complaints",
+      "value": -1.5260718135614013,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "additive_all_capped",
+      "step": "4 complaints",
+      "value": -1.5260718135614013,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_equal",
+      "step": "1 complaint",
+      "value": 54.66878617309584,
+      "state": "ACTIVE",
+      "rank": 546,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_equal",
+      "step": "2 complaints",
+      "value": 49.66878617309584,
+      "state": "ACTIVE",
+      "rank": 569,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_equal",
+      "step": "3 complaints",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_equal",
+      "step": "4 complaints",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_tuned",
+      "step": "1 complaint",
+      "value": 49.72273809063916,
+      "state": "ACTIVE",
+      "rank": 560,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_tuned",
+      "step": "2 complaints",
+      "value": 44.72273809063916,
+      "state": "ACTIVE",
+      "rank": 578,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_tuned",
+      "step": "3 complaints",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "mounting_complaints",
+      "arm": "scorecard_tuned",
+      "step": "4 complaints",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive",
+      "step": "eval fails",
+      "value": 253.207937181472,
+      "state": "ACTIVE",
+      "rank": 138,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive",
+      "step": "approved back",
+      "value": 253.207937181472,
+      "state": "ACTIVE",
+      "rank": 138,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive",
+      "step": "90 days clean",
+      "value": 244.207937181472,
+      "state": "ACTIVE",
+      "rank": 152,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive_all_capped",
+      "step": "eval fails",
+      "value": 1.687937181472023,
+      "state": "ACTIVE",
+      "rank": 583,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive_all_capped",
+      "step": "approved back",
+      "value": 1.687937181472023,
+      "state": "ACTIVE",
+      "rank": 583,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "additive_all_capped",
+      "step": "90 days clean",
+      "value": -7.312062818527978,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_equal",
+      "step": "eval fails",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_equal",
+      "step": "approved back",
+      "value": 49.4538086606794,
+      "state": "ACTIVE",
+      "rank": 570,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_equal",
+      "step": "90 days clean",
+      "value": 46.05672608258492,
+      "state": "ACTIVE",
+      "rank": 581,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_tuned",
+      "step": "eval fails",
+      "value": 0.0,
+      "state": "VETOED",
+      "rank": null,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_tuned",
+      "step": "approved back",
+      "value": 39.989522946393684,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "eval_failure",
+      "arm": "scorecard_tuned",
+      "step": "90 days clean",
+      "value": 36.592440368299215,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive",
+      "step": "heavily retrieved",
+      "value": 1163.9859910049665,
+      "state": "ACTIVE",
+      "rank": 1,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive",
+      "step": "1 complaint",
+      "value": 1158.9859910049665,
+      "state": "ACTIVE",
+      "rank": 1,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive",
+      "step": "2 complaints",
+      "value": 1153.9859910049665,
+      "state": "ACTIVE",
+      "rank": 1,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive_all_capped",
+      "step": "heavily retrieved",
+      "value": 14.985991004966579,
+      "state": "ACTIVE",
+      "rank": 99,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive_all_capped",
+      "step": "1 complaint",
+      "value": 9.985991004966579,
+      "state": "ACTIVE",
+      "rank": 391,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "additive_all_capped",
+      "step": "2 complaints",
+      "value": 4.9859910049665785,
+      "state": "ACTIVE",
+      "rank": 558,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_equal",
+      "step": "heavily retrieved",
+      "value": 75.50069179813073,
+      "state": "ACTIVE",
+      "rank": 211,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_equal",
+      "step": "1 complaint",
+      "value": 60.50069179813073,
+      "state": "ACTIVE",
+      "rank": 502,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_equal",
+      "step": "2 complaints",
+      "value": 55.50069179813073,
+      "state": "ACTIVE",
+      "rank": 542,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_tuned",
+      "step": "heavily retrieved",
+      "value": 70.55464371567406,
+      "state": "ACTIVE",
+      "rank": 283,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_tuned",
+      "step": "1 complaint",
+      "value": 55.554643715674054,
+      "state": "ACTIVE",
+      "rank": 532,
+      "of": 586
+    },
+    {
+      "scenario": "popular_but_complained",
+      "arm": "scorecard_tuned",
+      "step": "2 complaints",
+      "value": 50.55464371567406,
+      "state": "ACTIVE",
+      "rank": 557,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive",
+      "step": "2 complaints",
+      "value": 252.4939281864386,
+      "state": "ACTIVE",
+      "rank": 139,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive",
+      "step": "re-validated",
+      "value": 268.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive",
+      "step": "evals pass",
+      "value": 272.907937181472,
+      "state": "ACTIVE",
+      "rank": 120,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive_all_capped",
+      "step": "2 complaints",
+      "value": 0.9739281864385987,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive_all_capped",
+      "step": "re-validated",
+      "value": 4.973928186438599,
+      "state": "ACTIVE",
+      "rank": 558,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "additive_all_capped",
+      "step": "evals pass",
+      "value": 9.387937181472022,
+      "state": "ACTIVE",
+      "rank": 428,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_equal",
+      "step": "2 complaints",
+      "value": 49.66878617309584,
+      "state": "ACTIVE",
+      "rank": 569,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_equal",
+      "step": "re-validated",
+      "value": 55.38307188738156,
+      "state": "ACTIVE",
+      "rank": 542,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_equal",
+      "step": "evals pass",
+      "value": 66.41809437496511,
+      "state": "ACTIVE",
+      "rank": 404,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_tuned",
+      "step": "2 complaints",
+      "value": 44.72273809063916,
+      "state": "ACTIVE",
+      "rank": 578,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_tuned",
+      "step": "re-validated",
+      "value": 50.151309519210585,
+      "state": "ACTIVE",
+      "rank": 559,
+      "of": 586
+    },
+    {
+      "scenario": "recovery",
+      "arm": "scorecard_tuned",
+      "step": "evals pass",
+      "value": 67.25559437496511,
+      "state": "ACTIVE",
+      "rank": 361,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive",
+      "step": "baseline",
+      "value": 262.4939281864386,
+      "state": "ACTIVE",
+      "rank": 125,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive",
+      "step": "60 days unused",
+      "value": 256.4939281864386,
+      "state": "ACTIVE",
+      "rank": 134,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive",
+      "step": "180 days unused",
+      "value": 244.4939281864386,
+      "state": "ACTIVE",
+      "rank": 152,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive",
+      "step": "2 years unused",
+      "value": 189.4939281864386,
+      "state": "ACTIVE",
+      "rank": 222,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive_all_capped",
+      "step": "baseline",
+      "value": 10.973928186438599,
+      "state": "ACTIVE",
+      "rank": 334,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive_all_capped",
+      "step": "60 days unused",
+      "value": 4.9739281864386,
+      "state": "ACTIVE",
+      "rank": 558,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive_all_capped",
+      "step": "180 days unused",
+      "value": -0.03400899503342192,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "additive_all_capped",
+      "step": "2 years unused",
+      "value": -0.03400899503342192,
+      "state": "ACTIVE",
+      "rank": 586,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_equal",
+      "step": "baseline",
+      "value": 69.66878617309584,
+      "state": "ACTIVE",
+      "rank": 346,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_equal",
+      "step": "60 days unused",
+      "value": 59.042715391872,
+      "state": "ACTIVE",
+      "rank": 514,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_equal",
+      "step": "180 days unused",
+      "value": 55.722068272739556,
+      "state": "ACTIVE",
+      "rank": 542,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_equal",
+      "step": "2 years unused",
+      "value": 55.500692468398306,
+      "state": "ACTIVE",
+      "rank": 542,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_tuned",
+      "step": "baseline",
+      "value": 64.72273809063917,
+      "state": "ACTIVE",
+      "rank": 402,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_tuned",
+      "step": "60 days unused",
+      "value": 54.09666730941534,
+      "state": "ACTIVE",
+      "rank": 541,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_tuned",
+      "step": "180 days unused",
+      "value": 50.77602019028289,
+      "state": "ACTIVE",
+      "rank": 557,
+      "of": 586
+    },
+    {
+      "scenario": "neglect",
+      "arm": "scorecard_tuned",
+      "step": "2 years unused",
+      "value": 50.554644385941636,
+      "state": "ACTIVE",
+      "rank": 557,
+      "of": 586
+    }
+  ],
+  "corpus": 586,
+  "seed": 17
+}
